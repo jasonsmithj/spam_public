@@ -9,12 +9,14 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://unpkg.com/nprogress@0.2.0/nprogress.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/js/materialize.min.js"></script>
   <script src="{{ url_for('static', filename='js/index.js') }}"></script>
@@ -42,7 +44,7 @@
     </div>
   </nav>
   <div class="section no-pad-bot" id="index-banner">
-    <br><br>
+
     <div class="container">
       <h1 class="header center orange-text">Is this spam?</h1>
       <div class="row center">
@@ -52,27 +54,37 @@
         <form class="col s10 offset-s1">
           <div class="row">
             <div class="input-field col s12 ">
-              <textarea id="textarea_spam_body" class="materialize-textarea"></textarea>
-              <label for="textarea1">Your spam here</label>
+              <textarea id="textarea_spam_body" class="spam_textarea"></textarea>
             </div>
             <a id="spam_api_send_button" class="waves-effect waves-light btn orange btn-large">CHECK</a>
+
+            <div id="spam_feedback_box" class="hide">
+                <p>結果についてフィードバックをお願いします。</p>
+                <a class="spam_feedback_button red lighten-1 waves-effect waves-light btn-large">
+                    <i class="material-icons left">mood_bad</i>微妙</a>
+                <a class="spam_feedback_button spam_feedback_button_good waves-effect waves-light btn-large">
+                    <i class=" material-icons left">mood</i>納得</a>
+            </div>
           </div>
         </form>
       </div>
     </div>
   </div>
 
-
+  <ol>
+    <!-- todos 配列にある各 todo に対して todo-item コンポーネントのインスタンスを作成する -->
+    <todo-item></todo-item>
+  </ol>
   <div class="container">
     <div class="section" id="spam-result">
 
       <div class="row">
-        <div class="col s3"><span style="font-size: 1.4rem;">Probability: </span></div>
+        <div class="col s3"><span style="font-size: 1.0rem;">Probability: </span></div>
         <div class="col s9"><span style="font-size: 2rem;" class="z-depth-1">${ probability }</span></div>
       </div>
 
       <div class="row">
-        <div class="col s3"><span style="font-size: 1.4rem;">Vocabulary: </span></div>
+        <div class="col s3"><span style="font-size: 1.0rem;">Vocabulary: </span></div>
         <div class="col s9"><span style="font-size: 1.6rem;" class="z-depth-1">${ vocabulary }</span></div>
       </div>
 

@@ -1,5 +1,7 @@
 ;(function(){
 
+    url = 'http://127.0.0.1:5000/v1'
+
   /**
     * ****************************************************
     *  DOMの構築が完了してから実行する
@@ -18,28 +20,39 @@
     })
 
     $("#spam_api_send_button").click(function(){
-      const spam_button = $(this)
-      spam_button.addClass('disabled');
-      mixpanel.track(
-          "Played song",
-          {"genre": "hip-hop"}
-      );
-      app.probability = '98%'
-      app.vocabulary = '説明会 line 事業 絶対 url 動機 予約 必要 全国 最適 販売 心配 日時 特別 宣伝 アカウント テンプレート 了承'
-      /*
-      axios.get('http://127.0.0.1:5000/v1/recommend/works/'+workId)
+
+        NProgress.start();
+
+        app.probability = '';
+        app.vocabulary = '';
+
+        const spam_button = $(this)
+        spam_button.addClass('disabled');
+
+        axios.post(url + '/spams', {
+            body: $('#textarea_spam_body').val()
+        })
         .then(function (response) {
-            # 自動でjsonをjsオブジェクトに変換してくれる
+            // 自動でjsonをjsオブジェクトに変換してくれる
             app.probability = response.data.spam.probability;
             app.vocabulary = response.data.spam.vocabulary;
 
             spam_button.removeClass('disabled');
+
+            spam_button.addClass('hide');
+            $('#spam_feedback_box').removeClass('hide');
+
+            NProgress.done();
         })
         .catch(function (error) {
           alert(error.response.status + '  ' + error.response.data.message);
         });
-    */
 
+    });
+
+    $(".spam_feedback_button").click(function(){
+        $('#spam_api_send_button').removeClass('hide');
+        $('#spam_feedback_box').addClass('hide');
     });
 
 

@@ -12,3 +12,9 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+.spam_textarea {
+    height: 18rem;
+}
+.spam_feedback_button_good {
+    margin-left: 12px;
+}

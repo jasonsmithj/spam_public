@@ -2,7 +2,7 @@
 
 import MeCab
 import unicodedata
-import re
+import re, os
 
 from app import app
 
@@ -133,7 +133,7 @@ class Wakati():
         # -Ochasenを指定するとtabで区切られる。こんな感じ。
         # ['C言語\tシーゲンゴ\tC言語\t名詞-固有名詞-一般\t\t']
         tagger = MeCab.Tagger(
-            '-Ochasen -d {0}'.format(app.config['NEOLOGD_PATH'])
+            '-Ochasen -d {0}'.format(os.path.expanduser('~') + '/mecab-ipadic-neologd/mecab-ipadic-neologd')
         )
 
         # 正規化した上で分形態素解析して、1行ごとに区切ってリスト化する

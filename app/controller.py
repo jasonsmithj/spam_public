@@ -5,16 +5,15 @@ from flask import render_template
 from app import app
 from app.http.validation import Validation
 from app.http.connection import Connection
-from app.http.messages import Messages
+from app.http.spam import Spam
 from app.http.error import Error
 
-# <int:userId>この仕組み(int:)を使うとint以外でリクエストが来た時にこのrouteだと認識されなく
-# なるので、この仕組みは使わない。404になる。validationでintかチェックする
 
 # ---------------------------------------------
 # Middleware Routing
 # ---------------------------------------------
 
+ver = '/v1'
 
 @app.before_request
 def beforeRequest():
@@ -35,10 +34,10 @@ def get_index(name=None):
     return render_template('index.html', name=name)
 
 
-@app.route('/messages', methods=['GET'])
-def list_messages():
-    Validation().list_messages()
-    return Messages().list()
+@app.route(ver + '/spams', methods=['POST'])
+def add_spam():
+    # Validation().list_messages()
+    return Spam().add()
 
 
 # ---------------------------------------------

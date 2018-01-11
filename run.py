@@ -21,7 +21,7 @@ if __name__ == '__main__':
     debugをtrueにすることで、コードを修正したときに自動的に再起動してくれる
     '''
     if os.environ.get('ENVIRONMENT') != 'development':
-        raise('テスト環境以上ではWSGI, gunicornなど, を使って起動すること')
+        raise Exception('テスト環境以上ではWSGI, gunicornなど, を使って起動すること')
 
     app.run(
         host='127.0.0.1',
